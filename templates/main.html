@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="../static/style.css">
+    <title>Typical Climate</title>
+</head>
+<body>
+<style>
+#element1 {display:inline-block;}
+#element2 {display:inline-block; vertical-align: top; margin-top: 90px;alignment: left; width: 25%}
+</style>
+<div id="element1">
+<img src="{{ url_for('main_plot') }}" alt="Image">
+</div>
+<div id="element2" >
+<p>What city has the best climate? <br/>When planning your trip or vacation you often check weather data for
+humidity and temperature. <br/>Below is the collection of the yearly average values for the following cities: </p>
+<ul>
+{% for city in cities %}
+    <li><a href="{{ url_for('city', city_id=city[0]) }}">{{ city[1] }}</a></li>
+{% endfor %}
+</ul>
+</div>
+</body>
+</html>

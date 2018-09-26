@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="../static/style.css">
+    <title>Edit meteo data for {{ city_name }}</title>
+</head>
+{#<style type="text/css">
+
+  input:required:invalid input:focus:invalid{
+    border-color: red;
+  }
+  input:required:valid {
+    border-color: darkgreen;
+  }
+
+</style>#}
+<script type="text/javascript">
+function validateTemp() {
+    if (50.0 < document.meteoInput.temperature.value.float  < -50.0) {
+        alert("The temperature value should be from -50 to 50");
+        document.meteoInput.temperature.focus();
+        return false;
+    }
+    return true;
+}
+</script>
+<body>
+<p>Edit the data for {{ city_name }} as appropriate:</p>
+<div class="container">
+    <form name="meteoInput" action="" class="form-inline" method="post">
+    <table>
+
+            <tr>
+                <td>Month</td>
+                <td>Average Temperature</td>
+                <td>Average Humidity</td>
+            </tr>
+            {% for month in months %}
+                <tr>
+                    <td>{{ month }}</td>
+                     <td><label>-50.0 C</label>
+                         <input placeholder="20" class="form-control" name="temperature{{ loop.index0 }}" value="{{ meteo[2][loop.index0]}}" type="range" min="-50.0" max="50.0">
+                         <label>50.0 C</label></td>
+                    <td><label>0%</label>
+                        <input placeholder="20" class="form-control" name="humidity{{ loop.index0 }}" value="{{ meteo[3][loop.index0]}}" type="range" min="0" max="100">
+                        <label>100%</label></td>
+                </tr>
+            {% endfor %}
+
+    </table>
+    <input class="btn btn-default" type="submit" value="Save">
+    </form>
+     <p>{{ error }}</p>
+	</div>
+
+</body>
+</html>

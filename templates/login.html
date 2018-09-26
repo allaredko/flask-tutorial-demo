@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="../static/style.css">
+    <title>Login form</title>
+</head>
+<body>
+<p>Login to edit the meteo database:</p>
+<div class="container">
+		<form action="" class="form-inline" method="post">
+			<input type="text" class="form-control" placeholder = "Username" name="username" value="{{request.form.username}}">
+			<input type="password" class="form-control" placeholder = "Password" name="password" value="{{request.form.password}}">
+			<input class="btn btn-default" type="submit" value="Login">
+		</form>
+        <p>{{ error }}</p>
+	</div>
+</body>
+</html>
