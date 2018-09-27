@@ -5,26 +5,6 @@
     <link rel="stylesheet" type="text/css" href="../static/style.css">
     <title>Edit meteo data for {{ city_name }}</title>
 </head>
-{#<style type="text/css">
-
-  input:required:invalid input:focus:invalid{
-    border-color: red;
-  }
-  input:required:valid {
-    border-color: darkgreen;
-  }
-
-</style>#}
-<script type="text/javascript">
-function validateTemp() {
-    if (50.0 < document.meteoInput.temperature.value.float  < -50.0) {
-        alert("The temperature value should be from -50 to 50");
-        document.meteoInput.temperature.focus();
-        return false;
-    }
-    return true;
-}
-</script>
 <body>
 <p>Edit the data for {{ city_name }} as appropriate:</p>
 <div class="container">
