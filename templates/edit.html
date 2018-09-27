@@ -13,18 +13,30 @@
 
             <tr>
                 <td>Month</td>
-                <td>Average Temperature</td>
-                <td>Average Humidity</td>
+                <td colspan="2" align="center">Average Temperature</td>
+                <td colspan="2" align="center">Average Humidity</td>
             </tr>
             {% for month in months %}
                 <tr>
                     <td>{{ month }}</td>
-                     <td><label>-50.0 C</label>
-                         <input placeholder="20" class="form-control" name="temperature{{ loop.index0 }}" value="{{ meteo[2][loop.index0]}}" type="range" min="-50.0" max="50.0">
-                         <label>50.0 C</label></td>
-                    <td><label>0%</label>
-                        <input placeholder="20" class="form-control" name="humidity{{ loop.index0 }}" value="{{ meteo[3][loop.index0]}}" type="range" min="0" max="100">
-                        <label>100%</label></td>
+                    <td>
+                        <output name="temp_output{{ loop.index0 }}">{{ meteo[2][loop.index0]}}</output>
+                         <label> C</label>
+                    </td>
+                    <td>
+                         <input placeholder="20" class="form-control" name="temperature{{ loop.index0 }}"
+                                value="{{ meteo[2][loop.index0]}}" type="range" min="-50.0" max="50.0" pattern="[0-9]{3}"
+                                oninput="temp_output{{ loop.index0 }}.value=this.value" >
+
+                    <td>
+                        <output name="hum_output{{ loop.index0 }}">{{ meteo[3][loop.index0]}}</output>
+                        <label> %</label>
+                    </td>
+                    <td>
+                        <input placeholder="20" class="form-control" name="humidity{{ loop.index0 }}"
+                               value="{{ meteo[3][loop.index0]}}" type="range" min="0" max="100"
+                               oninput="hum_output{{ loop.index0 }}.value=this.value">
+                    </td>
                 </tr>
             {% endfor %}
 
