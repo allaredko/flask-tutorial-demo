@@ -1,3 +1,4 @@
+import os
 from functools import wraps
 from flask import Flask, render_template, send_file, request, session, redirect, url_for, flash
 from user_database import MeteoData, engine
@@ -91,7 +92,7 @@ def edit_database(city_id):
                                error=error)
 
 
-app.secret_key = 'w98r98j&eyB T%X22!jmN]LWX/,ErT'
+app.secret_key = os.environ['FLASK_WEB_APP_KEY']
 
 if __name__ == '__main__':
     app.run()
