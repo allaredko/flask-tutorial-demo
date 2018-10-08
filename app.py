@@ -5,32 +5,30 @@ from user_database import MeteoData, engine
 from sqlalchemy import update, and_
 from charts import get_city_image, get_main_image, CITIES, MONTHS, get_meteo_data_for_city
 
-# Flask application instance
 app = Flask(__name__)
 
 
-# Entry point; the view for the main page
 @app.route('/')
 def main():
+    """Entry point; the view for the main page"""
     return render_template('main.html', cities=enumerate(CITIES))
 
 
-# The view for rendering the scatter chart
 @app.route('/main.png')
 def main_plot():
+    """The view for rendering the scatter chart"""
     img = get_main_image()
     return send_file(img, mimetype='image/png', cache_timeout=0)
 
 
-# The view for the login page
 @app.route('/login/<int:city_id>',  methods=["GET", "POST"])
 def login(city_id):
+    """The view for the login page"""
     error = ''
     try:
         if request.method == "POST":
             attempted_username = request.form['username']
             attempted_password = request.form['password']
-            # login verification
             if attempted_username == "admin" and attempted_password == "password":
                 session['logged_in'] = True
                 session['username'] = request.form['username']
@@ -43,10 +41,10 @@ def login(city_id):
         return render_template("login.html", error=error, city_name=CITIES[city_id], city_id=city_id)
 
 
-# Login session
 def login_required(f):
     @wraps(f)
     def wrap(*args, **kwargs):
+        """login session"""
         if 'logged_in' in session:
             return f(*args, **kwargs)
         else:
@@ -55,23 +53,23 @@ def login_required(f):
     return wrap
 
 
-# Views for the city details
 @app.route('/city/<int:city_id>')
 def city(city_id):
+    """Views for the city details"""
     return render_template('city.html', city_name=CITIES[city_id], city_id=city_id)
 
 
-# Views for rendering city specific charts
 @app.route('/city<int:city_id>.png')
 def city_plot(city_id):
+    """Views for rendering city specific charts"""
     img = get_city_image(city_id)
     return send_file(img, mimetype='image/png', cache_timeout=0,)
 
 
-# Views for editing city specific data
 @app.route('/edit/<int:city_id>', methods=["GET", "POST"])
 @login_required
 def edit_database(city_id):
+    """Views for editing city specific data"""
     meteo = get_meteo_data_for_city(CITIES[city_id])
     try:
         if request.method == "POST":

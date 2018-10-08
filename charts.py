@@ -23,8 +23,8 @@ def get_meteo_data_for_city(city):
     return city_yearly_temp / 12, city_yearly_hum / 12, city_temp, city_hum
 
 
-# Rendering the scatter chart
 def get_main_image():
+    """Rendering the scatter chart"""
     yearly_temp = []
     yearly_hum = []
 
@@ -48,8 +48,8 @@ def get_main_image():
     return img
 
 
-# Rendering line changes with city specific data
 def get_city_image(city_id):
+    """Rendering line charts with city specific data"""
     city = CITIES[city_id]
     _, _, city_temp, city_hum = get_meteo_data_for_city(city)
 
