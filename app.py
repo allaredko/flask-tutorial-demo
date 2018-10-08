@@ -75,8 +75,8 @@ def edit_database(city_id):
         if request.method == "POST":
             connection = engine.connect()
             for i in range(12):
-                month_temperature = float(request.form['temperature%s' % i])
-                month_humidity = int(request.form['humidity%s' % i])
+                month_temperature = float(request.form[f'temperature{i}'])
+                month_humidity = int(request.form[f'humidity{i}'])
                 # database update
                 stm = update(MeteoData).where(and_(MeteoData.c.City == CITIES[city_id], MeteoData.c.Month == MONTHS[i]))
                 stm = stm.values(AverageHumidity=month_humidity, AverageTemperature=month_temperature)
