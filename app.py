@@ -21,12 +21,12 @@ def main_plot():
     return send_file(img, mimetype='image/png', cache_timeout=0)
 
 
-@app.route('/login/<int:city_id>',  methods=['GET', 'POST'])
+@app.route('/login/<int:city_id>',  methods=["GET", "POST"])
 def login(city_id):
     """The view for the login page"""
-    error = ''
     try:
-        if request.method == 'POST':
+        error = None
+        if request.method == "POST":
             attempted_username = request.form['username']
             attempted_password = request.form['password']
             if attempted_username == 'admin' and attempted_password == 'password':
@@ -37,8 +37,8 @@ def login(city_id):
                 print('invalid credentials')
                 error = 'Invalid credentials. Please, try again.'
         return render_template('login.html', error=error, city_name=CITIES[city_id], city_id=city_id)
-    except Exception as error:
-        return render_template('login.html', error=error, city_name=CITIES[city_id], city_id=city_id)
+    except Exception as e:
+        return render_template('login.html', error=str(e), city_name=CITIES[city_id], city_id=city_id)
 
 
 def login_required(f):
@@ -66,22 +66,24 @@ def city_plot(city_id):
     return send_file(img, mimetype='image/png', cache_timeout=0,)
 
 
-@app.route('/edit/<int:city_id>', methods=['GET', 'POST'])
+@app.route('/edit/<int:city_id>', methods=["GET", "POST"])
 @login_required
 def edit_database(city_id):
     """Views for editing city specific data"""
     meteo = get_meteo_data_for_city(CITIES[city_id])
     try:
-        if request.method == 'POST':
-            connection = engine.connect()
-            for i in range(12):
-                month_temperature = float(request.form[f'temperature{i}'])
-                month_humidity = int(request.form[f'humidity{i}'])
-                # database update
-                stm = update(MeteoData).where(and_(MeteoData.c.City == CITIES[city_id], MeteoData.c.Month == MONTHS[i]))
-                stm = stm.values(AverageHumidity=month_humidity, AverageTemperature=month_temperature)
-                connection.execute(stm)
-            connection.close()
+        if request.method == "POST":
+            #connection = engine.connect()
+            with engine.connect() as connection:
+                for i in range(12):
+                    # We ought to validate the input data, but this is a toy example so we don't really care
+                    month_temperature = float(request.form[f'temperature{i}'])
+                    month_humidity = int(request.form[f'humidity{i}'])
+                    # database update
+                    stm = update(MeteoData).where(and_(MeteoData.c.City == CITIES[city_id], MeteoData.c.Month == MONTHS[i]))
+                    stm = stm.values(AverageHumidity=month_humidity, AverageTemperature=month_temperature)
+                    connection.execute(stm)
+           # connection.close()
             return redirect(url_for('main', city_id=city_id))
         else:
             return render_template('edit.html', city_name=CITIES[city_id], city_id=city_id, months=MONTHS, meteo=meteo)

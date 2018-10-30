@@ -15,13 +15,13 @@
 </div>
 <div id="element2">
 <p>This graph shows mean daily temperature and average relative humidity in {{ city_name }}.</p>
-{% if session['logged_in'] == True %}
-    <p>Want to add more data? <br/>Go and <a href="{{ url_for('edit_database', city_id=city_id) }}">edit</a> the meteo database.</p>
+{% if session['logged_in'] %}
+    <p>Want to add more data?</p><p>Go and <a href="{{ url_for('edit_database', city_id=city_id) }}">edit</a> the meteo database.</p>
 {% else %}
-    <p>Want to edit meteo data? <br/>Please <a href="{{ url_for('login', city_id=city_id) }}">login</a> first.</p>
+    <p>Want to edit meteo data?</p><p>Please <a href="{{ url_for('login', city_id=city_id) }}">login</a> first.</p>
 {% endif %}
 <hr/>
-<p><a href="..">Back to the main page</a></p>
+<p><a href="/">Back to the main page</a></p>
 </div>
 </body>
 </html>
