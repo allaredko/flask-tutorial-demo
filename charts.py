@@ -6,6 +6,14 @@ MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 
 CITIES = ['St. Petersburg', 'Paris', 'Prague', 'Singapore', 'San Francisco']
 
 
+class MeteoData:
+    def __init__(self, city_id):
+        self.data
+        self.city_yearly_temp = 0
+        self.city_yearly_hum = 0
+        self.city_temp = []
+        self.city_hum = []
+
 def get_meteo_data_for_city(city):
     data = get_data()
     city_yearly_temp = 0
