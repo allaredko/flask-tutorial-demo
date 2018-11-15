@@ -24,6 +24,7 @@
 </div>
 <div id="element2">
     <p>This graph shows mean daily temperature and average relative humidity in {{ city_name }}.</p>
+    <p> {{ city_climate }}</p>
     {% if session['logged_in'] %}
     <p>Want to add more data?</p>
         <p>Go and <a href="{{ url_for('edit_database', city_id=city_id) }}">edit</a> the meteo database.</p>

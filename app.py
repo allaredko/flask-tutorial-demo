@@ -60,7 +60,8 @@ def login_required(f):
 def city(city_id):
     """Views for the city details"""
     city_record = data.get(city_id)
-    return render_template('city.html', city_name=city_record.city_name, city_id=city_id)
+    return render_template('city.html', city_name=city_record.city_name, city_id=city_id,
+                           city_climate=city_record.city_climate)
 
 
 @app.route('/city<int:city_id>.png')
