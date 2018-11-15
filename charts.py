@@ -1,6 +1,6 @@
 from io import BytesIO
 import matplotlib.pyplot as plt
-from user_database import data, MONTHS, get_city_temperature, get_city_humidity
+from user_database import data, MONTHS, get_city_temperature, get_city_humidity, CITIES
 
 
 def get_main_image():
@@ -18,8 +18,8 @@ def get_main_image():
     plt.xlim(70, 95)
     plt.ylabel('Yearly Average Temperature')
     plt.xlabel('Yearly Average Relative Humidity')
-    # for i, txt in enumerate(CITIES):
-    #     plt.annotate(txt, (yearly_hum[i], yearly_temp[i]))
+    for i, txt in enumerate(CITIES):
+         plt.annotate(txt, (yearly_hum[i], yearly_temp[i]))
 
     img = BytesIO()
     plt.savefig(img)
