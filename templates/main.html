@@ -7,20 +7,31 @@
 </head>
 <body>
 <style>
-#element1 {display:inline-block;}
-#element2 {display:inline-block; vertical-align: top; margin-top: 90px;alignment: left; width: 25%}
+    #element1 {
+        display: inline-block;
+    }
+
+    #element2 {
+        display: inline-block;
+        vertical-align: top;
+        margin-top: 90px;
+        alignment: left;
+        width: 25%
+    }
 </style>
 <div id="element1">
-<img src="{{ url_for('main_plot') }}" alt="Image">
+    <img src="{{ url_for('main_plot') }}" alt="Image">
 </div>
-<div id="element2" >
-<p>What city has the best climate?</p><p>When planning your trip or vacation you often check weather data for
-humidity and temperature.</p><p>Below is the collection of the yearly average values for the following cities: </p>
-<ul>
-{% for city_id, city_name in cities %}
-    <li><a href="{{ url_for('city', city_id=city_id) }}">{{ city_name }}</a></li>
-{% endfor %}
-</ul>
+<div id="element2">
+    <p>What city has the best climate?</p>
+    <p>When planning your trip or vacation you often check weather data for
+        humidity and temperature.</p>
+    <p>Below is the collection of the yearly average values for the following cities: </p>
+    <ul>
+        {% for city_id, city_name in cities %}
+            <li><a href="{{ url_for('city', city_id=city_id) }}">{{ city_name }}</a></li>
+        {% endfor %}
+    </ul>
 </div>
 </body>
 </html>
