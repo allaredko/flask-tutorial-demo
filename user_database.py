@@ -4,7 +4,7 @@ from sqlalchemy.orm import relationship, sessionmaker
 
 metadata = MetaData()
 # ToDo: do not use check_same_thread
-engine = create_engine('sqlite:///user_database', connect_args={'check_same_thread': False}, echo=True)  # echo=True
+engine = create_engine('sqlite:///user_database', connect_args={'check_same_thread': False}, echo=False)  # echo=False
 Base = declarative_base()
 session = sessionmaker(bind=engine)()
 
@@ -32,9 +32,6 @@ class Meteo(Base):
 # Retrieving data from the database
 def get_cities():
     return session.query(City)
-    #with engine.connect() as connection:
-    #    city_data = session.query(City)
-    #    return city_data
 
 
 # ToDo: type annotations
