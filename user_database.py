@@ -6,7 +6,7 @@ metadata = MetaData()
 # ToDo: do not use check_same_thread
 engine = create_engine('sqlite:///user_database', connect_args={'check_same_thread': False}, echo=False)  # echo=False
 Base = declarative_base()
-session = sessionmaker(bind=engine)()
+db_session = sessionmaker(bind=engine)()
 
 
 # Table city
@@ -31,7 +31,7 @@ class Meteo(Base):
 
 # Retrieving data from the database
 def get_cities():
-    return session.query(City)
+    return db_session.query(City)
 
 
 # ToDo: type annotations
