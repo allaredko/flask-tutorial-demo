@@ -44,8 +44,6 @@ def get_city_image(city_id):
     plt.title(city.city_name)
 
     img = BytesIO()
-    print('before', len(img.getvalue()))
     plt.savefig(img)
-    print('after', len(img.getvalue()))
     img.seek(0)
     return img
