@@ -3,7 +3,7 @@ from functools import wraps
 from flask import Flask, render_template, send_file, request, session, redirect, url_for
 
 from user_database import CITIES, MONTHS, data, get_city_temperature, get_city_humidity
-from user_database import session as db_session
+from user_database import db_session as db_session
 from charts import get_city_image, get_main_image
 
 app = Flask(__name__)
@@ -56,6 +56,9 @@ def login_required(f):
     return wrap
 
 
+app.secret_key = os.environ['FLASK_WEB_APP_KEY']
+
+
 @app.route('/city/<int:city_id>')
 def city(city_id):
     """Views for the city details"""
@@ -101,8 +104,6 @@ def edit_database(city_id):
         return render_template('edit.html', city_name=city_record.city_name, city_id=city_id, months=MONTHS,
                                meteo=meteo, error=error)
 
-
-app.secret_key = os.environ['FLASK_WEB_APP_KEY']
 
 if __name__ == '__main__':
     app.run()
