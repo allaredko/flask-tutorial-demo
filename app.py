@@ -28,7 +28,7 @@ def login(city_id):
     """The view for the login page"""
     city_record = data.get(city_id)
     try:
-        error = None
+        error = ''
         if request.method == "POST":
             attempted_username = request.form['username']
             attempted_password = request.form['password']
